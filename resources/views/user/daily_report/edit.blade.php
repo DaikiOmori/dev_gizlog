@@ -4,10 +4,10 @@
 <h1 class="brand-header">日報編集</h1>
 <div class="main-wrap">
   <div class="container">
-      {!! Form::open(['route' => 'daily_report.store', 'method' => 'post']) !!}
+    {!! Form::open(['route' => ['daily_report.update', $dailyreport->id], 'method' => 'put']) !!}
       <input class="form-control" name="user_id" type="hidden" value="4">
       <div class="form-group form-size-small">
-        <input class="form-control" name="reporting_time" type="date">
+        <input class="form-control" name="reporting_time" value="{{ $dailyreport->reporting_time }}">
       <span class="help-block"></span>
       </div>
       <div class="form-group">
