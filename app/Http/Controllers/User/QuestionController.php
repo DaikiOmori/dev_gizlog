@@ -18,7 +18,7 @@ class QuestionController extends Controller
     protected $category;
     protected $comment;
 
-    public function __construct(Question $question, TagCategory $category, Comment $comment)
+    public function __construct(Question $question, TagCategory $category, Comment $comment) //使うdbモデルのインスタンス化
     {
         $this->middleware('auth');
         $this->question = $question;
