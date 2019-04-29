@@ -36,7 +36,7 @@ class DailyReport extends Model
     {
         return $this->filterLike('reporting_time', $conditions['search_word'])
                     //->filterEqual('reporting_time', $conditions['reporting_time'])
-                    ->orderby('created_at', 'desc');
+                    ->orderby('created_at', 'asc');
     }
 
 }
