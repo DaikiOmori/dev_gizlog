@@ -33,7 +33,7 @@ class DailyReportsController extends Controller
         if (array_key_exists('search_word', $inputs)) {
             $dailyreports = $this->dailyreport->fetchSearchingReport($inputs)->paginate(MAX_PAGE_COUNT);
         } else {
-            $dailyreports = $this->dailyreport->orderby('created_at', 'desc')->paginate(MAX_PAGE_COUNT);
+            $dailyreports = $this->dailyreport->orderby('created_at', 'asc')->paginate(MAX_PAGE_COUNT);
         }
         return view('user.daily_report.index', compact('dailyreports', 'inputs'));
     }
