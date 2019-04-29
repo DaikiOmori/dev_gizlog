@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      2019/04/01 (Mon) の日報
+      {{ $dailyreport->reporting_time->format('m/d (D)') }}
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">

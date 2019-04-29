@@ -20,7 +20,7 @@
       </div>
       <div class="form-group {{ $errors->has('content')? 'has-error' : '' }}">
         {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...']) !!}
-        <span class="help-block">{{ $errors->first('content') }}</span>
+        <span class="help-block">{{ $errors->first('contentss') }}</span>
       </div>
       {!! Form::submit('create', ['name' => 'confirm', 'class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}

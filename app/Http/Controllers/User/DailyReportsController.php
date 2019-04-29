@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\User\DailyReportRequest;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
+
+const MAX_PAGE_COUNT = 30;
+
 
 class DailyReportsController extends Controller
 {
@@ -26,8 +29,12 @@ class DailyReportsController extends Controller
      */
     public function index(Request $request)
     {
-        $dailyreports = $this->dailyreport->all();
         $inputs = $request->all();
+        if (array_key_exists('search_word', $inputs)) {
+            $dailyreports = $this->dailyreport->fetchSearchingReport($inputs)->paginate(MAX_PAGE_COUNT);
+        } else {
+            $dailyreports = $this->dailyreport->orderby('created_at', 'desc')->paginate(MAX_PAGE_COUNT);
+        }
         return view('user.daily_report.index', compact('dailyreports', 'inputs'));
     }
 
@@ -47,7 +54,7 @@ class DailyReportsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
         $input = $request->all();
         $input['user_id'] = Auth::id();
@@ -63,7 +70,11 @@ class DailyReportsController extends Controller
      */
     public function show($id)
     {
+        //$dailyreport = $this->dailyreport->find($id);
         $dailyreport = $this->dailyreport->find($id);
+        //dd($dailyreport);
+        $a = compact('dailyreport');
+        
         return view('user.daily_report.show', compact('dailyreport'));
     }
 
@@ -86,9 +97,10 @@ class DailyReportsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
         $input = $request->all();
+        $input['user_id'] = Auth::id();
         $this->dailyreport->find($id)->fill($input)->save();
         return redirect()->route('daily_report.index');
     }
