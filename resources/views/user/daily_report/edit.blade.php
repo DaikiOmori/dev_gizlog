@@ -11,11 +11,11 @@
       <span class="help-block">{{ $errors->first('reporting_time') }}</span>
       </div>
       <div class="form-group {{ $errors->has('title')? 'has-error' : '' }}">
-        <input class="form-control" name="title" type="text" value="{{ $dailyreport->title }}">
+        <input class="form-control" placeholder="Title" name="title" type="text" value="{{ $dailyreport->title }}">
       <span class="help-block">{{ $errors->first('title') }}</span>
       </div>
       <div class="form-group {{ $errors->has('contents')? 'has-error' : '' }}">
-        <textarea class="form-control" placeholder="本文です" name="contents" cols="50" rows="10">{{ $dailyreport->contents }}</textarea>
+        <textarea class="form-control" placeholder="Content" name="contents" cols="50" rows="10">{{ $dailyreport->contents }}</textarea>
       <span class="help-block">{{ $errors->first('contents') }}</span>
       </div>
     {!! Form::submit('UPDATE', ['name' => 'UPDATE', 'class' => 'btn btn-success pull-right']) !!}

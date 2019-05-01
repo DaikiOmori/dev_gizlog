@@ -30,10 +30,11 @@ class DailyReportsController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
+        //dd($inputs);
         if (array_key_exists('search_word', $inputs)) {
             $dailyreports = $this->dailyreport->fetchSearchingReport($inputs)->paginate(MAX_PAGE_COUNT);
         } else {
-            $dailyreports = $this->dailyreport->orderby('created_at', 'asc')->paginate(MAX_PAGE_COUNT);
+            $dailyreports = $this->dailyreport->orderby('reporting_time', 'desc')->paginate(MAX_PAGE_COUNT);
         }
         return view('user.daily_report.index', compact('dailyreports', 'inputs'));
     }
@@ -73,8 +74,6 @@ class DailyReportsController extends Controller
         //$dailyreport = $this->dailyreport->find($id);
         $dailyreport = $this->dailyreport->find($id);
         //dd($dailyreport);
-        $a = compact('dailyreport');
-        
         return view('user.daily_report.show', compact('dailyreport'));
     }
 
@@ -113,7 +112,7 @@ class DailyReportsController extends Controller
      */
     public function destroy($id)
     {
-      $dailyreport = DailyReport::find($id);
+      $dailyreport = $this->dailyreport->find($id);
       $dailyreport->delete();
       return redirect()->route('daily_report.index');
     }

@@ -19,24 +19,16 @@ class DailyReport extends Model
         'reporting_time'
     ];
 
-    protected $dates = [
-        'deleted_at',
-        'reporting_time'
-    ];
+    protected $dates = ['reporting_time'];
 
-    public function fetchPersonalRecords($user_id)
-    {
-        return $this->where('user_id', $user_id)
-                    ->orderBy('reporting_time', 'desc')
-                    ->get();
-    }
+    protected $deletes = [ 'deleted_at' ];
 
 
     public function fetchSearchingReport($conditions)
     {
         return $this->filterLike('reporting_time', $conditions['search_word'])
                     //->filterEqual('reporting_time', $conditions['reporting_time'])
-                    ->orderby('created_at', 'asc');
+                    ->orderby('reporting_time', 'desc');
     }
 
 }

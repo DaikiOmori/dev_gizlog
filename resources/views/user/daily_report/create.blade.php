@@ -5,7 +5,6 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => 'daily_report.store', 'method' => 'post']) !!}
-    <input class="form-control" name="user_id" type="hidden">
     <div class="form-group form-size-small {{ $errors->has('reporting_time')? 'has-error' : '' }}">
       <input class="form-control" name="reporting_time" type="date">
       <span class="help-block">{{ $errors->first('reporting_time') }}</span>
