@@ -94,6 +94,7 @@ class QuestionController extends Controller
     public function update(QuestionsRequest $request, $questionId)
     {
         $inputs = $request->all();
+        //dd($inputs);
         $this->question->find($questionId)->fill($inputs)->save();
         return redirect()->route('question.index');
     }

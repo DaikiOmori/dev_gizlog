@@ -14,4 +14,3 @@ class TagCategory extends Model
     protected $dates = ['deleted_at'];
 
 }
-

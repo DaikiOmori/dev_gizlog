@@ -54,4 +54,3 @@ class Question extends Model
                     ->orderby('created_at', 'desc');
     }
 }
-
