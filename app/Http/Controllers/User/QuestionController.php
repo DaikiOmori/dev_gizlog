@@ -35,7 +35,6 @@ class QuestionController extends Controller
     {
         $categories = $this->category->all();
         $inputs = $request->all();
-        //dd($request);
         if (array_key_exists('search_word', $inputs)) {
             $questions = $this->question->fetchSearchingQuestion($inputs)->paginate(MAX_PAGE_COUNT);
         } else {
@@ -143,4 +142,3 @@ class QuestionController extends Controller
     }
 
 }
-

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\DailyReportRequest;
@@ -9,8 +10,7 @@ use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
-const MAX_PAGE_COUNT = 30;
-
+const MAX_PAGE_COUNT_DAILYREPORTS = 30;
 
 class DailyReportsController extends Controller
 {
@@ -30,11 +30,10 @@ class DailyReportsController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        //dd($inputs);
         if (array_key_exists('search_word', $inputs)) {
-            $dailyreports = $this->dailyreport->fetchSearchingReport($inputs)->paginate(MAX_PAGE_COUNT);
+            $dailyreports = $this->dailyreport->fetchSearchingReport($inputs)->paginate(MAX_PAGE_COUNT_DAILYREPORTS);
         } else {
-            $dailyreports = $this->dailyreport->orderby('reporting_time', 'desc')->paginate(MAX_PAGE_COUNT);
+            $dailyreports = $this->dailyreport->orderby('reporting_time', 'desc')->paginate(MAX_PAGE_COUNT_DAILYREPORTS);
         }
         return view('user.daily_report.index', compact('dailyreports', 'inputs'));
     }
@@ -71,9 +70,7 @@ class DailyReportsController extends Controller
      */
     public function show($id)
     {
-        //$dailyreport = $this->dailyreport->find($id);
         $dailyreport = $this->dailyreport->find($id);
-        //dd($dailyreport);
         return view('user.daily_report.show', compact('dailyreport'));
     }
 
@@ -112,8 +109,8 @@ class DailyReportsController extends Controller
      */
     public function destroy($id)
     {
-      $dailyreport = $this->dailyreport->find($id);
-      $dailyreport->delete();
-      return redirect()->route('daily_report.index');
+        $dailyreport = $this->dailyreport->find($id);
+        $dailyreport->delete();
+        return redirect()->route('daily_report.index');
     }
 }

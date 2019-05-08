@@ -19,15 +19,15 @@ class DailyReport extends Model
         'reporting_time'
     ];
 
-    protected $dates = ['reporting_time'];
-
-    protected $deletes = [ 'deleted_at' ];
+    protected $dates = [
+        'reporting_time',
+        'deleted_at'
+    ];
 
 
     public function fetchSearchingReport($conditions)
     {
         return $this->filterLike('reporting_time', $conditions['search_word'])
-                    //->filterEqual('reporting_time', $conditions['reporting_time'])
                     ->orderby('reporting_time', 'desc');
     }
 
