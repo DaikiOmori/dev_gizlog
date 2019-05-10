@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\DailyReportRequest;
@@ -109,8 +108,7 @@ class DailyReportsController extends Controller
      */
     public function destroy($id)
     {
-        $dailyreport = $this->dailyreport->find($id);
-        $dailyreport->delete();
+        $this->dailyreport->find($id)->delete();
         return redirect()->route('daily_report.index');
     }
 }

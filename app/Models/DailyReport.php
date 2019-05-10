@@ -9,7 +9,6 @@ use App\Services\SearchingScope;
 
 class DailyReport extends Model
 {
-
     use SoftDeletes, SearchingScope;
 
     protected $fillable = [

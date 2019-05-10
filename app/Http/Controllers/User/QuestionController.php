@@ -18,7 +18,7 @@ class QuestionController extends Controller
     protected $category;
     protected $comment;
 
-    public function __construct(Question $question, TagCategory $category, Comment $comment) //使うdbモデルのインスタンス化
+    public function __construct(Question $question, TagCategory $category, Comment $comment)
     {
         $this->middleware('auth');
         $this->question = $question;
@@ -35,11 +35,13 @@ class QuestionController extends Controller
     {
         $categories = $this->category->all();
         $inputs = $request->all();
+
         if (array_key_exists('search_word', $inputs)) {
             $questions = $this->question->fetchSearchingQuestion($inputs)->paginate(MAX_PAGE_COUNT);
         } else {
             $questions = $this->question->orderby('created_at', 'desc')->paginate(MAX_PAGE_COUNT);
         }
+
         return view('user.question.index', compact('questions', 'categories', 'inputs'));
     }
 

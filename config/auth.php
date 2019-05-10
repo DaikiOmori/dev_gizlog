@@ -40,10 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        //admin_user用に追加
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        //ここまで
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -72,10 +75,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        //admin_user用に新たなproviderを追加
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\AdminUsers::class,
         ],
+        //
     ],
 
     /*
@@ -99,12 +104,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-
+        //admin_user用に新たなpasswordを追加
         'admins' => [
-            'provider' => 'admins',
+            'provider' => 'admins',//先ほど定義したproviderを指定
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        //
     ],
 
 ];
