@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Attendance;
 use App\Models\DailyReport;
+use App\Models\Question;
 use DB;
 use Carbon;
 
