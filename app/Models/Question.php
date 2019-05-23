@@ -10,6 +10,7 @@ use App\Models\Comment;
 
 class Question extends Model
 {
+    //
     use SoftDeletes;
 
     protected $fillable = [
