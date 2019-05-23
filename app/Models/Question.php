@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\TagCategory;
 use App\Models\Comment;
-use App\Services\SearchingScope;
 
 class Question extends Model
 {
-    use SoftDeletes, SearchingScope;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -37,29 +36,31 @@ class Question extends Model
         return $this->hasMany(Comment::class, 'question_id');
     }
 
-    public function keywordSearch($titleColumn, $selectedWord)
-    {
-        if (!empty($selectedWord))
-            $this->where($titleColumn, $selectedWord)->get();
-    }
 
-    public function categorySearch($categoryColumn, $selectedCategory)
-    {
-        if(!empty($selectedCategory))
-            $this->where($categoryColumn, 'LIKE', '%'.$selectedCategory.'%')->get();
-    }
+    public function searchAll($searchInfo)
+    {     
 
-    public function search($searchInfo)
-    {
-        return $this->keywordSearch('title', $searchInfo['search_word'])
-                    ->categorySearch('tag_category_id', $searchInfo['tag_category_id'])
-                    ->orderby('created_at','desc');
+        return $this->where('title', 'LIKE', '%'.$searchInfo['search_word'].'%')
+                    ->where('tag_category_id', $searchInfo['tag_category_id'])
+                    ->orderby('created_at', 'desc');
     }
 
     public function searchWord($searchInfo)
-    {
-        return $this->filterLike('title', $searchInfo['search_word'])
-                    ->filterEqual('tag_category_id', $searchInfo['tag_category_id'])
+    {     
+        return $this->where('title', 'LIKE', '%'.$searchInfo['search_word'].'%')
                     ->orderby('created_at', 'desc');
     }
+
+    public function searchCategory($searchInfo)
+    {     
+        return $this->where('tag_category_id', $searchInfo['tag_category_id'])
+                    ->orderby('created_at', 'desc');
+    }
+
+    public function getMyPage($userId)
+    {
+        return $this->where('user_id', $userId)
+                    ->orderby('created_at', 'desc');
+    }
+
 }

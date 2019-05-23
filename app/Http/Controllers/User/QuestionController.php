@@ -39,7 +39,10 @@ class QuestionController extends Controller
         //
         $inputs = $request->all();
         $categories = $this->category->all();
-        if (array_key_exists('search_word', $inputs)) {
+
+        if (!empty($inputs['tag_category_id'])) {
+            $questions = $this->question->searchAll($inputs)->paginate(MAX_PAGE_COUNT);
+        } elseif (!empty($inputs['search_word'])) {
             $questions = $this->question->searchWord($inputs)->paginate(MAX_PAGE_COUNT);
         } else {
             $questions = $this->question->orderby('created_at', 'desc')->paginate(MAX_PAGE_COUNT);
@@ -89,7 +92,7 @@ class QuestionController extends Controller
     public function myPage($userId)
     {
         //
-        $questions = $this->question->where('user_id', $userId)->orderby('created_at', 'desc')->get();
+        $questions = $this->question->getMyPage($userId)->get();
         return view('user.question.mypage', compact('questions'));
     
     }
