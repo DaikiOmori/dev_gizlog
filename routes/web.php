@@ -42,9 +42,9 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::resource('report', DailyReportController::class);
 
-    Route::resource('question', QuestionController::class);
     Route::get('question/{id}/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@myPage']);
     Route::post('question/{question}/comment', ['as' => 'question.comment', 'uses' => 'QuestionController@comment']);
+    Route::resource('question', QuestionController::class);
 });
 
 

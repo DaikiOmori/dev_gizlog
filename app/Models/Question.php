@@ -10,7 +10,6 @@ use App\Models\Comment;
 
 class Question extends Model
 {
-    //
     use SoftDeletes;
 
     protected $fillable = [
@@ -38,7 +37,7 @@ class Question extends Model
 
     public function comment()
     {
-        return $this->hasMany(Comment::class, 'question_id');
+        return $this->hasMany(Comment::class);
     }
 
     public function searchAll($searchInfo)
@@ -52,12 +51,6 @@ class Question extends Model
     public function searchWord($searchInfo)
     {     
         return $this->where('title', 'LIKE', '%'.$searchInfo['search_word'].'%')
-                    ->orderby('created_at', 'desc');
-    }
-
-    public function searchCategory($searchInfo)
-    {     
-        return $this->where('tag_category_id', $searchInfo['tag_category_id'])
                     ->orderby('created_at', 'desc');
     }
 
