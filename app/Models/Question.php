@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
@@ -17,6 +18,7 @@ class Question extends Model
         'title',
         'content',
     ];
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -27,15 +29,16 @@ class Question extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function category()
     {
         return $this->belongsTo(TagCategory::class, 'tag_category_id');
     }
+
     public function comment()
     {
         return $this->hasMany(Comment::class, 'question_id');
     }
-
 
     public function searchAll($searchInfo)
     {     
