@@ -15,7 +15,6 @@ use Illuminate\Support\Carbon;
 
 const MAX_PAGE_COUNT = 30;
 
-
 class QuestionController extends Controller
 {
     protected $question;
